@@ -12,7 +12,12 @@ namespace  Reliefie.API
         public DateTime PostDateTime { get; private set; }  = System.DateTime.UtcNow;           
         [JsonProperty("location")]
         public Point Location { get; set; } = new Point(0,0);
-        public string ImageUrl { get; private set; }       
+        public string ImageUrl { get; private set; }    
+
+        public void SetImageUrl(string url)   
+        {
+            ImageUrl = url;
+        }
     }
      
 }

@@ -12,7 +12,7 @@
             "type": "process",
             "problemMatcher": "$msCompile",
             "options": {
-                "cwd": "${workspaceFolder}/api"
+                "cwd": "${workspaceFolder}/analyze-service"
             }
         },
         {
@@ -31,7 +31,7 @@
             },
             "problemMatcher": "$msCompile",
             "options": {
-                "cwd": "${workspaceFolder}/api"
+                "cwd": "${workspaceFolder}/analyze-service"
             }
         },
         {
@@ -47,7 +47,7 @@
             "type": "process",
             "problemMatcher": "$msCompile",
             "options": {
-                "cwd": "${workspaceFolder}/api"
+                "cwd": "${workspaceFolder}/analyze-service"
             }
         },
         {
@@ -64,14 +64,14 @@
             "dependsOn": "clean release",
             "problemMatcher": "$msCompile",
             "options": {
-                "cwd": "${workspaceFolder}/api"
+                "cwd": "${workspaceFolder}/analyze-service"
             }
         },
         {
             "type": "func",
             "dependsOn": "build",
             "options": {
-                "cwd": "${workspaceFolder}/api/bin/Debug/netcoreapp2.1"
+                "cwd": "${workspaceFolder}/analyze-service/bin/Debug/netcoreapp2.1"
             },
             "command": "host start",
             "isBackground": true,
