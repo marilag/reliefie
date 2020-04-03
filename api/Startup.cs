@@ -32,6 +32,13 @@ namespace Reliefie.API
                             cosmosoptions.Database = config["CosmosDb:Database"];
                             cosmosoptions.DefaultRU = int.Parse(config["CosmosDb:DefaultRU"]);
                         });
+            builder.Services.AddSingleton<IEventGridService, EventGridService>();
+            builder.Services.Configure<EventGridOptions>(eventgridoptions => config.GetSection("EventGrid"));
+            builder.Services.Configure<EventGridOptions>(option => {
+                option.TopicEndpoint = config["EventGrid:TopicEndpoint"];
+                option.Key = config["EventGridKey"];
+            });
+            
 
         }
         

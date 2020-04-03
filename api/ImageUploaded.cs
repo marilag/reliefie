@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
@@ -11,10 +12,12 @@ namespace Reliefie.API
     public  class ImageUploaded
     {
         private readonly ICosmosDBSQLService _cosmos;
+        private readonly IEventGridService _eventgrid;
 
-        public ImageUploaded(ICosmosDBSQLService cosmos)
+        public ImageUploaded(ICosmosDBSQLService cosmos, IEventGridService eventgrid)
         {
             _cosmos = cosmos;
+            _eventgrid = eventgrid;
         }
 
         [FunctionName("ImageUploaded")]
@@ -31,8 +34,14 @@ namespace Reliefie.API
             else {
                 log.LogInformation($"Item {userPost.Id} retrieved. Updating image url");
                 userPost.SetImageUrl($"reliefie-images/{postId}");     
-                await _cosmos.UpsertItemAsync(container,userPost);
-                log.LogInformation($"Item {userPost.Id} retrieved. Update Completed");
+                await _cosmos.UpsertItemAsync(container,userPost);                
+                await _eventgrid.PublishEventsAsync( new List<EventGridPublishMessage>() { new EventGridPublishMessage() {
+                       Id = Guid.NewGuid().ToString(),                                
+                        DataVersion = "1.0",
+                        Data = new EventObject() { EventType = "UserPostVerified", EventData = userPost },
+                        Subject = "UserPostVerified"                    
+                }});
+                log.LogInformation($"Item {userPost.Id} retrieved. Update Completed");                
             }
         }
     }
