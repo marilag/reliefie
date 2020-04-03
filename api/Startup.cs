@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 
+[assembly: FunctionsStartup(typeof(Reliefie.API.Startup))]
 namespace Reliefie.API
 {
      public class Startup : FunctionsStartup
@@ -24,7 +25,6 @@ namespace Reliefie.API
 
             builder.Services.Replace(ServiceDescriptor.Singleton(typeof(IConfiguration), config));
             builder.Services.AddSingleton<ICosmosDBSQLService, CosmosDBSQLService>();
-            
             builder.Services.Configure<CosmosDBSQLOptions>(cosmosoptions =>
                         {
                             cosmosoptions.EndpointUri = config["CosmosDb:EndpointUri"];
