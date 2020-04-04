@@ -38,7 +38,7 @@ namespace Reliefie.API
                 await _eventgrid.PublishEventsAsync( new List<EventGridPublishMessage>() { new EventGridPublishMessage() {
                        Id = Guid.NewGuid().ToString(),                                
                         DataVersion = "1.0",
-                        Data = new EventObject() { EventType = "UserPostVerified", EventData = userPost },
+                        Data = new EventObject() { EventType = "UserPostVerified", EventData = userPost.Id },
                         Subject = "UserPostVerified"                    
                 }});
                 log.LogInformation($"Item {userPost.Id} retrieved. Update Completed");                

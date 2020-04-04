@@ -4,5 +4,6 @@
     "azureFunctions.projectRuntime": "~2",
     "debug.internalConsoleOptions": "neverOpen",
     "azureFunctions.preDeployTask": "publish",
-    "azureFunctions.templateFilter": "All"
+    "azureFunctions.templateFilter": "All",
+    "azureFunctions.projectSubpath": "api"
 }
